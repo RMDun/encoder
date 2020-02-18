@@ -1,9 +1,7 @@
 import java.util.*;
-import java.applet.*;
-import java.awt.*;
 import java.lang.*;
 
-public class Encode extends Applet {
+public class Encode {
 	int shift;
 	int alphabetSize = 26;
 	
@@ -16,10 +14,15 @@ public class Encode extends Applet {
 	public String encode(String messageToEncode) {
 		char[] encode = messageToEncode.toCharArray();
 		for(int i = 0; i < encode.length; i++) {
-			
+			boolean isUppercase = false;
 			// Only encodes a letter
 			if(Character.isLetter(encode[i])) {
 				
+				// Checks for an uppercase letter and converts it to lowercase
+				if(Character.isUpperCase(encode[i])) {
+					isUppercase = true;
+					encode[i] = Character.toLowerCase(encode[i]);
+				}
 				// Shifts char by shift amount
 				encode[i] = (char)(encode[i] + shift);
 			
@@ -31,6 +34,11 @@ public class Encode extends Applet {
 			
 				if(encode[i]< 'a') {
 					encode[i] = (char)(encode[i] + alphabetSize);
+				}
+				
+				// Reverts back to uppercase
+				if(isUppercase) {
+					encode[i] = Character.toUpperCase(encode[i]);
 				}
 			}
 			
